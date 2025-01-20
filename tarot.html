@@ -511,6 +511,65 @@ button {
     }
 }
 
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float img {
+    width: 70%;
+    height: 70%;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
+}
+
+
+#openCalendarBtn {
+    color: #fff; /* Cor do texto */
+    background: linear-gradient(135deg, #ffd900, #069e1a); /* Gradiente místico */
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px; /* Tamanho do botão */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+   margin: 10px;
+    bottom: 20px; /* Ajuste de posição inferior */
+    right: 20px; /* Ajuste de posição à direita */
+    z-index: 1000; /* Certifica-se de que esteja acima de outros elementos */
+}
+
+#openCalendarBtn:hover {
+    background: linear-gradient(135deg, #ff0000, #04450b); /* Mudança de gradiente */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Efeito de sombra mais forte */
+    transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+}
+
+#openCalendarBtn:active {
+    transform: scale(1.05); /* Reduz o zoom ao clicar */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Sombra reduzida */
+}
+
 
   </style>
    
@@ -544,8 +603,8 @@ button {
     <nav>
         <a href="#inicio">Início</a>
         <a href="#sobre">Sobre</a>
-        <a href="#contato">Contato</a>
-        <a href="#agendamento">Agendamento</a>
+        <a href="#contato">Agendamento</a>
+       
     </nav>
 
     
@@ -683,56 +742,6 @@ button {
 
   <section id="contato">
 
-<!-- Seção Contato -->
-<div class="container contact" id="contato">
-    <h2 style="font-family: cursive;">Instagram</h2>
-    <div class="iframely-embed">
-        <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;">
-            <a href="https://www.instagram.com/carolinatarot03/" data-iframely-url="//iframely.net/M0Z7Evm"></a>
-        </div>
-    </div>
-    <script async src="//iframely.net/embed.js"></script>
-
-<br>
-<h2 style="font-family:cursive;">Entre em contato pelo wattssap</h2>
-
-
-<br>
-<div id="form">
-    <div class="container">
-        <h1>Formulário</h1>
-        <form id="whatsappForm">
-            <div class="form-group">
-                <label for="name">Nome:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Telefone:</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Mensagem:</label>
-                <textarea id="message" name="message" required></textarea>
-            </div> <br>
-            <div class="form-group">
-                <button type="button" onclick="sendToWhatsApp()" id="wat">Enviar</button>
-            </div>
-        </form>
-  </div>
-</div>
-
-
-  </section>
-
-
-
-
-
-
 
     <div class="container" id="agendamento">
         <h2 style="font-family: cursive;">Agende Sua Consulta</h2>
@@ -746,7 +755,33 @@ button {
   
 
     <!-- Botão para abrir o Google Calendar -->
+     <br><br>
     <button class="agendamento-button" id="openCalendarBtn" >Agendar um compromisso</button>
+
+<!-- Seção Contato -->
+<div class="container contact" id="contato">
+    <h2 style="font-family: cursive;">Instagram</h2>
+    <div class="iframely-embed">
+        <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;">
+            <a href="https://www.instagram.com/carolinatarot03/" data-iframely-url="//iframely.net/M0Z7Evm"></a>
+        </div>
+    </div>
+    <script async src="//iframely.net/embed.js"></script>
+
+<br>
+
+
+  </section>
+
+  <a href="https://wa.me/5511916339707" target="_blank" class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+
+
+
+
+    
 
  </div>   
 
@@ -823,19 +858,7 @@ button {
                 document.head.appendChild(script);
             })();
         </script>
-    <script>
-          function sendToWhatsApp() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
-
-            const whatsappMessage = `*Nome:* ${name}\n*Email:* ${email}\n*Telefone:* ${phone}\n*Mensagem:* ${message}`;
-            const whatsappURL = `https://api.whatsapp.com/send?phone=SEU_NUMERO&text=${encodeURIComponent(whatsappMessage)}`;
-
-            window.open(whatsappURL, '_blank');
-        }
-      </script>
+  
 
 <script>
 
