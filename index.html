@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loader Místico</title>
+    <style>
+        /* Estilo geral */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #000;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            z-index: 1000;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Cartas de Tarot */
+        .tarot-card {
+            width: 120px;
+            height: 180px;
+            margin: 20px;
+            background: radial-gradient(circle, #ff0066, #ff99cc);
+            border-radius: 10px;
+            display: inline-block;
+            animation: rotateCard 1.5s infinite alternate;
+        }
+
+        .tarot-card:before {
+            content: '🔮'; /* Símbolo de carta mística */
+            font-size: 40px;
+            display: block;
+            text-align: center;
+            margin-top: 50px;
+            color: #fff;
+        }
+
+        @keyframes rotateCard {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Bola de Cristal */
+        .crystal-ball {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 5px solid #ff33cc;
+            box-shadow: 0 0 20px rgba(255, 33, 204, 0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Texto Místico */
+        .mystic-text {
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 30px;
+            text-align: center;
+            animation: fadeInText 2s;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Tornando o loader invisível quando o vídeo acabar */
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="tarot-card"></div>
+        <div class="tarot-card"></div>
+        <div class="tarot-card"></div>
+        <div class="crystal-ball"></div>
+        <div class="mystic-text">O destino está em suas mãos...</div>
+    </div>
+
+    <script>
+        // Simula um carregamento de 5 segundos
+        setTimeout(function() {
+            // Após o carregamento, esconder o loader e redirecionar para a página admin
+            document.getElementById('loader').classList.add('hidden');
+            window.location.href = 'tarot.html';
+        }, 5000); // Ajuste o tempo do loader conforme necessário
+    </script>
+</body>
+</html>
