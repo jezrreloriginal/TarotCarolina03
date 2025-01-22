@@ -1,936 +1,141 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carolinetarot03</title>
+    <title>CarolinaTarot03</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* Fonte manuscrita */
-
-        body {
-            font-family: 'Roboto', sans-serif;
+        /* Estilo geral */
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #f4f3ee;
-            color: #333;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-            padding-top: 100px; /* Ajusta o conteúdo para não se sobrepor ao cabeçalho fixo */
+            height: 100%;
+            background-color: #000;
+            font-family: 'Arial', sans-serif;
         }
 
-
-        
-
-        header {
-            position: relative;
-            text-align: center;
-            color: #fff;
-            padding: 100px 20px;
-            z-index: 2;
-            font-family: 'Dancing Script', cursive; /* Fonte manuscrita */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra para destacar o cabeçalho */
-        }
-
-    /* Vídeo como fundo desfocado */
-.body-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1; /* Coloca o vídeo atrás do conteúdo */
-}
-
-/* Regras para o vídeo */
-.body-video video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;  /* 100% da largura da tela */
-    height: 100vh; /* 100% da altura da tela */
-    object-fit: cover; /* Faz o vídeo cobrir toda a tela sem distorção */
-    filter: blur(8px) brightness(0.5);
-}
-
-/* Media query para telas pequenas */
-@media screen and (max-width: 768px) {
-    .body-video video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: rgb(68, 4, 4);
-            padding: 10px;
+        /* Loader */
+        #loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 3; /* Garante que a navegação fique sempre sobre os outros conteúdos */
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* Cards de Gifs */
-        .cards {
+            height: 100%;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
+            align-items: center;
+            background: #000;
+            z-index: 1000;
+            animation: fadeIn 2s;
         }
 
-        .card {
-            width: 200px;
-            border: 1px solid #ddd;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Cartas de Tarot */
+        .tarot-card {
+            width: 120px;
+            height: 180px;
+            margin: 20px;
+            background: radial-gradient(circle, #ff0066, #ff99cc);
             border-radius: 10px;
-            overflow: hidden;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
+            display: inline-block;
+            animation: rotateCard 1.5s infinite alternate;
         }
 
-        .card img {
-            width: 100%;
-            height: auto;
-        }
-
-        .card:hover {
-            transform: scale(1.05); /* Animação de aumento no hover */
-        }
-
-        /* Círculo sobre o cabeçalho */
-        .circle {
-            position: fixed; /* Tornar o círculo flutuante sobre o cabeçalho */
-            top: 30px; /* Ajuste para que o círculo fique um pouco abaixo da borda superior */
-            left: 20px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            z-index: 3;
-        }
-
-        .circle img {
-            width: 100%;
-            height: auto;
-        }
-
-        .container {
-            padding: 20px;
+        .tarot-card:before {
+            content: '🔮'; /* Símbolo de carta mística */
+            font-size: 40px;
+            display: block;
             text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        footer {
-            background-color: rgba(128, 0, 0, 0.8);
+            margin-top: 50px;
             color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            z-index: 2;
         }
 
-        /* Estilo do botão de agendamento */
-        .agendamento-button, #wat {
-            background-color: #067928;
-            color: rgba(139, 15, 15, 0.74);
-           border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+        @keyframes rotateCard {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        .agendamento-button:hover, #wat {
-            box-shadow: 0 0 20px 5px rgba(11, 128, 67, 0.6);
+        /* Bola de Cristal */
+        .crystal-ball {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 5px solid #ff33cc;
+            box-shadow: 0 0 20px rgba(255, 33, 204, 0.5);
+            animation: pulse 1.5s infinite;
         }
 
-        /* Borda animada verde */
-        .agendamento-button::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 3px solid #ffffff;
-            border-radius: 5px;
-            animation: border-animation 2s infinite linear;
-        }
-
-        @keyframes border-animation {
+        @keyframes pulse {
             0% {
                 transform: scale(1);
-                border-color: rgba(128, 0, 0, 0.8);
+                opacity: 0.5;
             }
             50% {
-                transform: scale(1.1);
-                border-color: rgba(128, 0, 0, 0.8);
+                transform: scale(1.2);
+                opacity: 1;
             }
             100% {
                 transform: scale(1);
-                border-color:rgba(128, 0, 0, 0.8);
+                opacity: 0.5;
             }
         }
 
-        /* Estrelas animadas ao redor do botão */
-        .agendamento-button:hover::after {
-            content: "★";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 18px;
-            color: #f8e807;
-            animation: sparkle 0.5s ease-in-out infinite;
+        /* Texto Místico */
+        .mystic-text {
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 30px;
+            text-align: center;
+            animation: fadeInText 2s;
         }
 
-        @keyframes sparkle {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-       
-      
-        .gif-gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Força 3 GIFs por linha */
-        gap: 10px;
-    }
-    .gif-gallery img {
-        width: 100%;
-        height: auto;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
- /* Cards de Gifs */
- .cards {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
-        .card {
-            width: 200px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-            position: relative;
-        }
-
-        .card img {
-            width: 100%;
-            height: auto;
-        }
-
-        .card:hover {
-            transform: scale(1.05); /* Animação de aumento no hover */
-        }
-
-        /* Texto de resumo invisível por padrão */
-        .card .meaning {
+        /* Tornando o loader invisível quando o vídeo acabar */
+        .hidden {
             display: none;
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            background-color: rgb(0, 0, 0);
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 14px;
         }
 
-        /* Exibe o texto ao clicar no card */
-        .card.active .meaning {
-            display: block;
-        }
-
-        .container {
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        footer {
-            background-color: rgba(128, 0, 0, 0.8);
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        
-        h2{
-            color: #067928;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            translate: 3s;
-        }
-
-   h2:hover{
-    transform: scale(1.05);
-}
-
-input, textarea{
-    font-size: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    width: 90%;
-    height: 90%;
-    border-radius: 15px;
-    border: none;
-    background-color: #072911;
-    color: #d4b61b;
-    margin: 5px;
-    padding: 10px;
-    
-}
-
-#btnform{
-
-    font-size: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    width: 90%;
-    height: 90%;
-    border-radius: 15px;
-    border: none;
-    background-color: #072911;
-    color: #d4b61b;
-    margin: 5px;
-    padding: 10px;
-
-}
-
-#form{
-    
-height: auto;
-    background-color: #ffffff56;
-    border-radius: 30px;
-}
-
-
-
-@media (max-width: 932px) {
-    .gif-gallery {
-        display: flex;
-        flex-wrap: nowrap; /* Impede que os itens quebrem para uma nova linha */
-        overflow-x: auto; /* Adiciona o scroll horizontal */
-        gap: 10px; /* Espaçamento entre os GIFs */
-        scroll-snap-type: x mandatory; /* Para suavizar a navegação horizontal */
-    }
-    .gif-gallery .card {
-        flex: 0 0 auto; /* Impede que os GIFs se redimensionem */
-        scroll-snap-align: start; /* Alinha os GIFs ao início do contêiner */
-    }
-}
-
-@media (min-width: 432px) and (max-width: 931px) {
-    .gif-gallery {
-        display: flex;
-        flex-wrap: nowrap; /* Impede que os itens quebrem para uma nova linha */
-        overflow-x: auto; /* Adiciona o scroll horizontal */
-        gap: 10px; /* Espaçamento entre os GIFs */
-        scroll-snap-type: x mandatory; /* Para suavizar a navegação horizontal */
-    }
-    .gif-gallery .card {
-        flex: 0 0 auto; /* Impede que os GIFs se redimensionem */
-        scroll-snap-align: start; /* Alinha os GIFs ao início do contêiner */
-    }
-}
-
-@media (max-width: 432px) {
-    .gif-gallery {
-        display: flex;
-        flex-wrap: nowrap; /* Impede que os itens quebrem para uma nova linha */
-        overflow-x: auto; /* Adiciona o scroll horizontal */
-        gap: 10px; /* Espaçamento entre os GIFs */
-        scroll-snap-type: x mandatory; /* Para suavizar a navegação horizontal */
-    }
-    .gif-gallery .card {
-        flex: 0 0 auto; /* Impede que os GIFs se redimensionem */
-        scroll-snap-align: start; /* Alinha os GIFs ao início do contêiner */
-    }
-}
-
-
-.gif-carousel {
-    position: relative;
-    max-width: 100%;
-    overflow: hidden;
-    display: none; /* Ocultar o carrossel por padrão */
-}
-
-.carousel-container {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-items {
-    display: flex;
-    gap: 10px;
-}
-
-.card {
-    flex: 0 0 auto;
-    width: 200px; /* Ajuste a largura conforme necessário */
-}
-
-.card img {
-    width: 100%;
-    height: auto;
-}
-
-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.prev-btn {
-    left: 10px;
-}
-
-.next-btn {
-    right: 10px;
-}
-
-/* Exibir o carrossel apenas em dispositivos com largura abaixo de 932px */
-@media (max-width: 932px) {
-    .gif-carousel {
-        display: block; /* Mostrar o carrossel em telas pequenas */
-    }
-
-    .card {
-        width: 150px; /* Ajuste a largura para dispositivos menores */
-    }
-}
-
-/* Ajuste para telas menores (como celulares) */
-@media (max-width: 432px) {
-    .gif-carousel {
-        display: block; /* Mostrar o carrossel em dispositivos ainda menores */
-    }
-    
-    .card {
-        width: 120px; /* Ajuste a largura para celulares muito pequenos */
-    }
-}
-/* Esconder o carrossel e mostrar a galeria normal por padrão */
-.gif-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.gif-carousel {
-    display: none; /* Carrossel oculto por padrão */
-}
-
-.card {
-    flex: 0 0 auto;
-    width: 200px; /* Ajuste a largura conforme necessário */
-}
-
-.card img {
-    width: 100%;
-    height: auto;
-}
-
-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.prev-btn {
-    left: 10px;
-}
-
-.next-btn {
-    right: 10px;
-}
-
-/* Mostrar carrossel e esconder os outros GIFs em telas menores */
-@media (max-width: 932px) {
-    .gif-gallery {
-        display: none; /* Esconder a galeria padrão */
-    }
-
-    .gif-carousel {
-        display: block; /* Mostrar o carrossel */
-    }
-}
-
-/* Ajuste para telas menores (como celulares) */
-@media (max-width: 432px) {
-    .gif-carousel {
-        display: block; /* Mostrar o carrossel em dispositivos menores */
-    }
-
-    .card {
-        width: 120px; /* Ajuste a largura para celulares muito pequenos */
-    }
-}
-
-.whatsapp-float {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25d366;
-    color: #fff;
-    border-radius: 50%;
-    text-align: center;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.whatsapp-float img {
-    width: 70%;
-    height: 70%;
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
-}
-
-
-#openCalendarBtn {
-    color: #fff; /* Cor do texto */
-    background: linear-gradient(135deg, #ffd900, #069e1a); /* Gradiente místico */
-    border: none;
-    border-radius: 50px;
-    padding: 15px 30px; /* Tamanho do botão */
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-   margin: 10px;
-    bottom: 20px; /* Ajuste de posição inferior */
-    right: 20px; /* Ajuste de posição à direita */
-    z-index: 1000; /* Certifica-se de que esteja acima de outros elementos */
-}
-
-#openCalendarBtn:hover {
-    background: linear-gradient(135deg, #ff0000, #04450b); /* Mudança de gradiente */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Efeito de sombra mais forte */
-    transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
-}
-
-#openCalendarBtn:active {
-    transform: scale(1.05); /* Reduz o zoom ao clicar */
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Sombra reduzida */
-}
-
-
-  </style>
-   
-
-
-    <!-- Meta Tags Básicas -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="Descubra o Seu Destino com Carolina Torete 03 - Tarot Online">
-    <meta name="description" content="Explore os mistérios do tarot com Carolina Torete 03. Agende sua consulta e receba orientação espiritual para amor, trabalho, e vida pessoal.">
-    <meta name="keywords" content="tarot, Carolina Torete, tarot online, espiritualidade, leitura de cartas, orientação espiritual">
-    <meta name="author" content="Carolina Torete">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="pt-BR">
-
-    <!-- Open Graph (Para Redes Sociais como Facebook e WhatsApp) -->
-    <meta property="og:title" content="Descubra o Seu Destino com Carolina Torete 03 - Tarot Online">
-    <meta property="og:description" content="Explorando os mistérios do tarot? Agende uma consulta com Carolina Torete 03 e descubra respostas para seus questionamentos.">
-    <meta property="og:image" content="https://caroltarot03.com/imagens/perfil.jpg">
-    <meta property="og:url" content="https://caroltarot03.com">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="pt_BR">
-
-    <!-- Twitter Card (Para compartilhamento no Twitter) -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Descubra o Seu Destino com Carolina Torete 03 - Tarot Online">
-    <meta name="twitter:description" content="Tarot Online com Carolina Torete 03: receba orientação para amor, trabalho e sua jornada espiritual.">
-    <meta name="twitter:image" content="https://caroltarot03.com/imagens/perfil.jpg">
-    <meta name="twitter:site" content="@seuTwitter">
-
-    <!-- Favicon e Imagem Destacada -->
-    <link rel="icon" href="https://caroltarot03.com/imagens/perfil.jpg" type="image/png">
-
-
-
+    </style>
 </head>
-
-
 <body>
-    <!-- Vídeo como fundo desfocado -->
-    <div class="body-video">
-        <video autoplay muted loop>
-            <source src="https://www.shutterstock.com/shutterstock/videos/1107219471/preview/stock-footage-stockholm-sweden-june-mysterious.mp4" type="video/mp4">
-       
-        </video>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="tarot-card"></div>
+        <div class="tarot-card"></div>
+        <div class="tarot-card"></div>
+        <div class="crystal-ball"></div>
+        <div class="mystic-text">O destino está em suas mãos...</div>
     </div>
-
-
-  
-
-
-    <div class="circle">
-        <img src="perfil.jpg" alt="Imagem do perfil">
-    </div>
-
-    <header id="inicio">
-        <h1 style="font-size: 70px; color: #b42121;"   > <span style="color: #b42121;">Bem-vindo ao</span> <br> Carolina Tarot03</h1>
-    </header>
-
-    <nav>
-        <a href="#inicio">Início</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#contato">Agendamento</a>
-       
-    </nav>
-
-    
-
-        
-
-        
-
-      
-      
-
-      
-</head>
-
-
-
-
-
-
-
-
-    <!-- Seção Início com 7 cards -->
-    <div class="container" id="inicio">
-        <h2 > Principais cartas</h2>
-        <div class="gif-gallery">
-            <!-- Adicione 7 cards com gifs -->
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="1.gif" alt="Gif 1">
-                <div class="meaning"><span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> Os Enamorados :</span> tem a ver com uma importante decisão que deve ser tomada. </div>
-            </div>
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="2.gif" alt="Gif 2">
-                <div class="meaning"><span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> A Imperatriz: </span>  aparece em uma consulta, geralmente indica que as coisas vão bem na situação questionada, como se cada coisa estivesse em seu devido lugar, exatamente como desejado..</div>
-            </div>
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="3.gif" alt="Gif 3">
-                <div class="meaning"> <span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> O Papa :</span>aparece em uma consulta, as respostas remetem à busca de conselhos sábios.</div>
-            </div>
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="4.gif" alt="Gif 4">
-                <div class="meaning"><span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> O Sol :</span>significa que boas energias estão em jogo. Quando esse Arcano Maior aparece na leitura, traz todo seu brilho para o momento.</div>
-            </div>
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="5.gif" alt="Gif 5">
-                <div class="meaning"><span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> Dois de Copas</span>  significa harmonia nos relacionamentos. Sugere que uma parceria tende a ser altamente proveitosa, seja no amor, negócios ou trabalho.</div>
-            </div>
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="6.gif" alt="Gif 6">
-                <div class="meaning"><span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> 10 de Copas </span> significa momentos felizes. Se seu coração deseja algo, sugere que você deve conseguir em breve. A carta também indica o fim de um ciclo, ou seja, você pode finalmente conquistar ou ter conquistado algo, resoluções na questão atual, um amor ou ter dado o próximo passo em seu relacionamento. </div>
-            </div>
-           
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="7.gif" alt="Gif 7">
-                <div class="meaning"><span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> O cavaleiro de Paus </span>  significa energias renovadas. Um novo e inesperado caminho pode se abrir e a carta sugere que você pode querer entrar nele de cabeça. </div>
-            </div>       
-                
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="8.gif" alt="Gif 8">
-                <div class="meaning"> <span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> o Mundo: </span> significa que a situação em questão terá um desfecho. Esse Arcano Maior anuncia um novo começo e indica que a mudança é inevitável. As mudanças que ocorrem ou ocorrerão tendem a ser positivas, sugerindo resposta positiva. Simboliza que algo em sua vida ou relacionado à questão perguntada chegará a uma conclusão.</div>
-            </div>
-            <div class="card" onclick="toggleMeaning(this)">
-                <img src="9.gif" alt="Gif 9">
-                <div class="meaning"><span style="font-family: cursive; color: rgb(255, 255, 255); font-weight: 900;"> A Estrela: </span> tem um significado extremamente positivo em uma consulta. Quando aparece, indica um momento em que as coisas começam a dar certo.  </div>
-            </div>
-       </div>
-    </div>
-
-
-
-   <!-- Carrossel de GIFs -->
-<div class="gif-carousel">
-    <div class="carousel-container">
-        <div class="carousel-items">
-            <div class="card" data-text="Texto para o GIF 1">
-                <img src="1.gif" alt="GIF 1">
-            </div>
-            <div class="card" data-text="Texto para o GIF 2">
-                <img src="2.gif" alt="GIF 2">
-            </div>
-            <div class="card" data-text="Texto para o GIF 3">
-                <img src="3.gif" alt="GIF 3">
-            </div>
-            <div class="card" data-text="Texto para o GIF 4">
-                <img src="4.gif" alt="GIF 4">
-            </div>
-            <div class="card" data-text="Texto para o GIF 4">
-                <img src="5.gif" alt="GIF 4">
-            </div>
-            <div class="card" data-text="Texto para o GIF 4">
-                <img src="6.gif" alt="GIF 4">
-            </div>
-            <div class="card" data-text="Texto para o GIF 4">
-                <img src="7.gif" alt="GIF 4">
-            </div>
-            <div class="card" data-text="Texto para o GIF 4">
-                <img src="8.gif" alt="GIF 4">
-            </div>
-            <div class="card" data-text="Texto para o GIF 4">
-                <img src="9.gif" alt="GIF 4">
-            </div>
-        </div>
-    </div>
-    <button class="prev-btn">❮</button>
-    <button class="next-btn">❯</button>
-</div>
-
-<!-- Área de texto que será exibida ao clicar no GIF -->
-<div id="gif-text" class="gif-text"></div>
-
-
-   
-    <script>                
-        // Função para alternar a exibição do significado ao clicar no card
-        function toggleMeaning(card) {
-            card.classList.toggle("active");
-        }
-    </script>
-
-
-
-
-    <!-- Seção Sobre -->
-     <fieldset >
-<div class="container" id="sobre" style="background-color: #c7750b;">
-    <h2 style="font-family: 'Dancing Script', cursive; color: #b42121; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); font-size: 50px;">Sobre Nós</h2>
-    <p style="font-family: 'Dancing Script', cursive; font-size: 40px; color: rgb(167, 24, 24); line-height: 1.8; text-align: justify;">
-        Bem-vindo ao Carolina Tarot 03! O tarot é uma arte mística, antiga e profunda que conecta você aos mistérios do universo.
-        <br><br>
-        Ao consultar as cartas, você entra em sintonia com energias poderosas que revelam caminhos, opções e insights sobre a sua jornada de vida. A cada carta que vira, o futuro se desvela diante de seus olhos, trazendo respostas e clareza para questões do coração, da mente e do destino.
-        <br><br>
-        Se você busca orientação, autoconhecimento ou respostas para suas dúvidas mais profundas, nosso espaço é o lugar ideal. Nossos leitores experientes irão guiá-lo(a) por meio de uma leitura de cartas única, revelando as energias que influenciam a sua vida.
-    </p>
-    </fieldset>
-</div>
-
-  <section id="contato">
-
-
-    <div class="container" id="agendamento">
-        <h2 style="font-family: cursive;">Agende Sua Consulta</h2>
-
-
-
-       
-      
-
-
-  
-
-    <!-- Botão para abrir o Google Calendar -->
-     <br><br>
-    <button class="agendamento-button" id="openCalendarBtn" >Agendar um compromisso</button>
-
-<!-- Seção Contato -->
-<div class="container contact" id="contato">
-    <h2 style="font-family: cursive;">Instagram</h2>
-    <div class="iframely-embed">
-        <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;">
-            <a href="https://www.instagram.com/carolinatarot03/" data-iframely-url="//iframely.net/M0Z7Evm"></a>
-        </div>
-    </div>
-    <script async src="//iframely.net/embed.js"></script>
-
-<br>
-
-
-  </section>
-
-  <a href="https://wa.me/5511916339707" target="_blank" class="whatsapp-float">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-</a>
-
-
-
-
-
-    
-
- </div>   
 
     <script>
-        // Definir a URL do agendamento no Google Calendar
-        var calendarUrl = 'https://calendar.app.google/2jysGCfEmpmq1NhS9';
-
-        // Obter o botão de agendamento
-        var btn = document.getElementById("openCalendarBtn");
-
-        // Quando o botão for clicado, abrir a página do Google Calendar em uma nova aba
-        btn.onclick = function() {
-            window.open(calendarUrl, '_blank'); // Abre a URL em uma nova aba
-        };
+        // Simula um carregamento de 5 segundos
+        setTimeout(function() {
+            // Após o carregamento, esconder o loader e redirecionar para a página admin
+            document.getElementById('loader').classList.add('hidden');
+            window.location.href = 'tarot.html';
+        }, 5000); // Ajuste o tempo do loader conforme necessário
     </script>
-      
-
-
-
-
-
-    <footer>
-        <p>&copy; 2025 Carolinatarot03. Todos os direitos reservados.</p>
-    </footer>
-
-
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Carolinetarot03</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-    
-            /* Menu de idiomas no canto superior direito */
-            .language-menu {
-              
-                position: absolute;
-                top: 35px;
-                right: 0px;
-                z-index: 10;
-                background-color: rgb(141, 9, 9);
-                padding: 5px 10px;
-                border-radius: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <!-- Menu de idiomas -->
-        <div class="language-menu">
-            <div id="google_translate_element"></div>
-        </div>
-    
-       
-    
-        <script type="text/javascript">
-            // Função para carregar o Google Translate widget
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({
-                    pageLanguage: 'pt',
-                    includedLanguages: 'en,es,pt', // Idiomas permitidos
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                }, 'google_translate_element');
-            }
-    
-            // Script do Google Translate
-            (function() {
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.async = true;
-                script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-                document.head.appendChild(script);
-            })();
-        </script>
-  
-
-<script>
-
-let currentIndex = 0;
-
-const carouselItems = document.querySelector('.carousel-items');
-const totalItems = document.querySelectorAll('.carousel-items .card').length;
-
-const prevButton = document.querySelector('.prev-btn');
-const nextButton = document.querySelector('.next-btn');
-
-prevButton.addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex--;
-    } else {
-        currentIndex = totalItems - 1;
-    }
-    updateCarousel();
-});
-
-nextButton.addEventListener('click', () => {
-    if (currentIndex < totalItems - 1) {
-        currentIndex++;
-    } else {
-        currentIndex = 0;
-    }
-    updateCarousel();
-});
-
-function updateCarousel() {
-    const offset = -currentIndex * 220; // Ajuste a largura do item (220px = largura do card + espaçamento)
-    carouselItems.style.transform = `translateX(${offset}px)`;
-}
-
-</script>      
-
-<script>
-   
-
-</script>
-
 </body>
 </html>
-
-
-
